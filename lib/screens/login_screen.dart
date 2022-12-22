@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parmanu_flutter/constants/snack_bar.dart';
 
 import '../constants/colour_theme.dart';
-import 'home_screen.dart';
+import 'menu_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _password == 'testPassword') {
                             Navigator.pushAndRemoveUntil(
                                 context, MaterialPageRoute(builder: (context) =>
-                                const HomeScreen()), (route) => false);
+                                const MenuScreen()), (route) => false);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }

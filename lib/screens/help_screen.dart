@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HelpScreen extends StatefulWidget {
+  const HelpScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HelpScreen> createState() => _HelpScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HelpScreenState extends State<HelpScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlurryContainer(
         color: Colors.white.withOpacity(0.15),
         child: const Center(
-          child: Text('HOME SCREEN'),
+          child: Text('HELP SCREEN'),
         ),
       ),
     );
