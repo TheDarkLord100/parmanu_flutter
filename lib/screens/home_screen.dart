@@ -28,15 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(10),
         child: BlurryContainer(
           color: Colors.black.withOpacity(0.15),
-          child: Center(
-            child: Graph(
-              xAxis: ChartAxisData(
-                  label: 'X', maximum: 2010, minimum: 2000, interval: 1),
-              yAxis: ChartAxisData(
-                  label: 'Y', maximum: 40, minimum: 25, interval: 1),
-              chartData: chartData,
-              legendText: 'Series 1',
-            ),
+          child: const Center(
+            child: Text('Home Screen')
           ),
         ));
   }

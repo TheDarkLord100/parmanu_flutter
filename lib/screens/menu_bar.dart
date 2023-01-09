@@ -3,7 +3,7 @@ import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 
 import 'package:parmanu_flutter/screens/home_screen.dart';
 import 'package:parmanu_flutter/screens/profile_screen.dart';
-import 'package:parmanu_flutter/screens/resource_screen.dart';
+import 'package:parmanu_flutter/screens/plot_screen.dart';
 import 'package:parmanu_flutter/screens/setting_screen.dart';
 import 'package:parmanu_flutter/screens/help_screen.dart';
 
@@ -33,8 +33,8 @@ class _MenuScreenState extends State<MenuScreen> {
           onPressed: () => setState(() => _index = 0),
           isSelected: true),
       CollapsibleItem(
-          text: 'Resources',
-          icon: Icons.rocket_launch_outlined,
+          text: 'Plots',
+          icon: Icons.bar_chart_outlined,
           onPressed: () => setState(() => _index = 1)),
       CollapsibleItem(
           text: 'Profiles',
@@ -53,7 +53,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   final List<Widget> _listScreens = [
     const HomeScreen(),
-    const ResourceScreen(),
+    const PlotScreen(),
     const ProfileScreen(),
     const HelpScreen(),
     const SettingScreen()

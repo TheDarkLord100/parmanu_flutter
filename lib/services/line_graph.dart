@@ -8,12 +8,14 @@ class Graph extends StatefulWidget {
       required this.xAxis,
       required this.yAxis,
       required this.chartData,
-      required this.legendText})
+      required this.legendText,
+      required this.chartTitle})
       : super(key: key);
   final ChartAxisData? xAxis;
   final ChartAxisData? yAxis;
   final List<ChartData> chartData;
   final String legendText;
+  final String chartTitle;
 
   @override
   State<Graph> createState() => _GraphState();
@@ -23,12 +25,21 @@ class _GraphState extends State<Graph> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+      title: ChartTitle(
+        text: widget.chartTitle,
+        textStyle: const TextStyle(
+          color: Colors.white
+        )
+      ),
       backgroundColor: Colors.black.withOpacity(.5),
       primaryXAxis: NumericAxis(
         rangePadding: ChartRangePadding.normal,
           minimum: widget.xAxis?.minimum,
           maximum: widget.xAxis?.maximum,
           interval: widget.xAxis?.interval,
+          labelStyle: const TextStyle(
+            color: Colors.white
+          ),
           title: AxisTitle(
               text: widget.xAxis?.label,
               textStyle: const TextStyle(color: Colors.black))),
@@ -37,6 +48,9 @@ class _GraphState extends State<Graph> {
           minimum: widget.yAxis?.minimum,
           maximum: widget.yAxis?.maximum,
           interval: widget.yAxis?.interval,
+          labelStyle: const TextStyle(
+              color: Colors.white
+          ),
           title: AxisTitle(
               text: widget.yAxis?.label,
               textStyle: const TextStyle(color: Colors.black))),
@@ -53,10 +67,15 @@ class _GraphState extends State<Graph> {
       ],
       legend: Legend(
         isVisible: true,
+        position: LegendPosition.bottom,
+        alignment: ChartAlignment.center,
         title: LegendTitle(
             text: 'Legend',
-            textStyle: const TextStyle(color: Colors.black),
+            textStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 16),
             alignment: ChartAlignment.near),
+        textStyle: const TextStyle(
+          color: Colors.white
+        )
       ),
     );
   }
