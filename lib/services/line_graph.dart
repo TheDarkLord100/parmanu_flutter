@@ -67,7 +67,7 @@ class _GraphState extends State<Graph> {
       ],
       legend: Legend(
         isVisible: true,
-        position: LegendPosition.bottom,
+        position: LegendPosition.right,
         alignment: ChartAlignment.center,
         title: LegendTitle(
             text: 'Legend',
