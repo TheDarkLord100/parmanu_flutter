@@ -137,23 +137,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           elevation: 5,
                           shadowColor: Colors.black,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)
-                          ),
-                          minimumSize: Size(MediaQuery
-                              .of(context)
-                              .size
-                              .width, 45),
+                              borderRadius: BorderRadius.circular(50)),
+                          minimumSize:
+                              Size(MediaQuery.of(context).size.width, 45),
                         ),
                         onPressed: () {
                           if (_email == 'test@example.com' &&
                               _password == 'testPassword') {
                             Navigator.pushAndRemoveUntil(
-                                context, MaterialPageRoute(builder: (context) =>
-                                const MenuScreen()), (route) => false);
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MenuScreen()),
+                                (route) => false);
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
-                        }, child: const Text('Login'))),
+                        },
+                        child: const Text('Login'))),
               ],
             ),
           ),

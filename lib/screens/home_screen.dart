@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:parmanu_flutter/services/serial.dart';
 
 import '../services/chart.dart';
-import '../services/line_graph.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,15 +21,21 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
+  void initState() {
+    Serial ser = Serial();
+    ser.getPorts();
+    ser.getData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.all(10),
         child: BlurryContainer(
           color: Colors.black.withOpacity(0.15),
-          child: const Center(
-            child: Text('Home Screen')
-          ),
+          child: const Center(child: Text('Home Screen')),
         ));
   }
 }
