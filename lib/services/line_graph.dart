@@ -9,21 +9,26 @@ class Graph extends StatefulWidget {
       required this.yAxis,
       required this.chartData,
       required this.legendText,
-      required this.chartTitle})
+      required this.chartTitle,
+      this.getController})
       : super(key: key);
   final ChartAxisData? xAxis;
   final ChartAxisData? yAxis;
   final List<ChartData> chartData;
   final String legendText;
   final String chartTitle;
+  final ValueSetter<ChartSeriesController>? getController;
 
   @override
   State<Graph> createState() => _GraphState();
 }
 
 class _GraphState extends State<Graph> {
+  ChartSeriesController? SeriesController;
+
   @override
   Widget build(BuildContext context) {
+
     return SfCartesianChart(
       title: ChartTitle(
         text: widget.chartTitle,
@@ -57,6 +62,13 @@ class _GraphState extends State<Graph> {
       series: <ChartSeries>[
         // Initialize line series
         LineSeries<ChartData, int>(
+          animationDuration: 100,
+          onRendererCreated: (ChartSeriesController controller) {
+            SeriesController = controller;
+            if(widget.getController != null) {
+              widget.getController!(SeriesController!);
+            }
+          },
           color: Colors.black,
             legendItemText: widget.legendText,
             dataSource: widget.chartData,

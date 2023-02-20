@@ -22,9 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    Serial ser = Serial();
-    ser.getPorts();
-    ser.getData();
     super.initState();
   }
 

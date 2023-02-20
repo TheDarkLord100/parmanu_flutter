@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../services/chart.dart';
 import '../services/line_graph.dart';
+import '../services/serial.dart';
 
 class PlotScreen extends StatefulWidget {
   const PlotScreen({Key? key}) : super(key: key);
@@ -12,6 +16,8 @@ class PlotScreen extends StatefulWidget {
 }
 
 class _PlotScreenState extends State<PlotScreen> {
+  Serial serial = Serial();
+  Timer? timer;
   final List<ChartData> chartData1 = [
     ChartData(10, 186.5),
     ChartData(20, 234.6),
@@ -35,6 +41,36 @@ class _PlotScreenState extends State<PlotScreen> {
     ChartData(400, 87.7),
     ChartData(500, 96.8),
   ];
+  ChartSeriesController? chartSeriesController;
+  int time = 0;
+  int min = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _updateData(Timer timer) {
+    setState(() {
+      time++;
+      if(serial.chartData.isNotEmpty) {
+        min = serial.chartData[0].x;
+      } else {
+        min = 0;
+      }
+    });
+    if (serial.chartData.length == 5) {
+      serial.chartData.removeAt(0);
+      chartSeriesController?.updateDataSource(
+        addedDataIndexes: <int>[serial.chartData.length - 1],
+        removedDataIndexes: <int>[0],
+      );
+    } else {
+      chartSeriesController?.updateDataSource(
+        addedDataIndexes: <int>[serial.chartData.length - 1],
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,24 +82,52 @@ class _PlotScreenState extends State<PlotScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Row(
+                children: [
+                  Expanded(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            serial.openPort();
+                            serial.getData();
+                            timer = Timer.periodic(const Duration(milliseconds: 200), _updateData);
+                          },
+                          child: const Text('Start'))),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Expanded(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            serial.closePort();
+                            timer?.cancel();
+                          },
+                          child: const Text('Stop')))
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
               Expanded(
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
                     child: Graph(
+                      getController: (ChartSeriesController value) {
+                        chartSeriesController = value;
+                      },
                       chartTitle: 'Chart 1',
                       xAxis: ChartAxisData(
                           label: 'X Axis 1',
-                          maximum: 50,
-                          minimum: 0,
-                          interval: 10),
+                          maximum: min + 15,
+                          minimum: min - 2,
+                          interval: 1),
                       yAxis: ChartAxisData(
                           label: 'Y Axis 1',
-                          maximum: 500,
+                          maximum: 200,
                           minimum: 0,
                           interval: 100),
-                      chartData: chartData1,
+                      chartData: serial.chartData,
                       legendText: 'Series 1',
                     ),
                   ),
